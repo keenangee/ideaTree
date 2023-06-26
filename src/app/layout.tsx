@@ -1,7 +1,7 @@
 import "./globals.css";
-import { Inter } from "next/font/google";
+import { Gamja_Flower } from "next/font/google";
 
-const inter = Inter({ subsets: ["latin"] });
+const gamja = Gamja_Flower({ weight: "400", style: "normal", subsets: [] });
 
 export const metadata = {
   title: "idea Tree",
@@ -15,7 +15,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={gamja.className}>{children}</body>
     </html>
   );
 }

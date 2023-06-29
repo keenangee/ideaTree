@@ -1,6 +1,10 @@
 import { db, auth } from "../../fireBaseConfig";
 import { doc, getDoc } from "firebase/firestore";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  updateProfile,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 
 // Create user with email and password
 
@@ -19,7 +23,23 @@ export const signUpWithEmail = async (
     await updateProfile(user, {
       displayName: username,
     });
+    return user;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
+// Sign in with email and password
+
+export const signInWithEmail = async (email: string, password: string) => {
+  try {
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    const user = userCredential.user;
+    console.log(user);
     return user;
   } catch (error) {
     console.log(error);

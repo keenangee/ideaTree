@@ -1,5 +1,30 @@
-import { db } from "../../fireBaseConfig";
+import { db, auth } from "../../fireBaseConfig";
 import { doc, getDoc } from "firebase/firestore";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+
+// Create user with email and password
+
+export const signUpWithEmail = async (
+  email: string,
+  password: string,
+  username: string
+) => {
+  try {
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    const user = userCredential.user;
+    await updateProfile(user, {
+      displayName: username,
+    });
+
+    return user;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const getDailyIdeas = async () => {
   const userRef = doc(db, "ideaTree", "userUID");

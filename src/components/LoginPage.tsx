@@ -10,11 +10,13 @@ const LoginPage = () => {
         <input
           className="border-2 border-lightest rounded-md p-2 m-2"
           type="text"
-          placeholder="Username"
+          name="email"
+          placeholder="Email"
         />
         <input
           className="border-2 border-lightest rounded-md p-2 m-2"
           type="password"
+          name="password"
           placeholder="Password"
         />
         <button

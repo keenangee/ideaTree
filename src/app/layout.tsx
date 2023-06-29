@@ -8,11 +8,11 @@ export const metadata = {
   description: "Grow your ideas into trees",
 };
 
-export default function RootLayout({
-  children,
-}: {
+interface RootLayoutProps {
   children: React.ReactNode;
-}) {
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <body className={gamja.className}>{children}</body>

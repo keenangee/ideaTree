@@ -1,11 +1,13 @@
 import DayView from "@/components/DayView";
+import LoginPage from "@/components/LoginPage";
 import Title from "@/components/Tittle";
 
 export default function Home() {
   return (
     <>
-      <Title />
-      <DayView />
+      <LoginPage />
+      {/* <Title />
+      <DayView /> */}
     </>
   );
 }

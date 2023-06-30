@@ -1,11 +1,15 @@
 "use client";
 
-import Link from "next/link";
-import { SignUpFormData } from "@/types";
+import { SignUpFormData, DisplayName } from "@/types";
 import { useState } from "react";
 import * as api from "../utils/api";
 
-const SignUpPage = () => {
+interface SignUpPageProps {
+  setDisplayName: React.Dispatch<React.SetStateAction<DisplayName>>;
+  setShowSignUp: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const SignUpPage = ({ setDisplayName, setShowSignUp }: SignUpPageProps) => {
   const [formData, setFormData] = useState<SignUpFormData>({
     username: "",
     email: "",
@@ -34,10 +38,21 @@ const SignUpPage = () => {
     }
     console.log(formData);
     try {
-      api.signUpWithEmail(formData.email, formData.password, formData.username);
+      const user = await api.signUpWithEmail(
+        formData.email,
+        formData.password,
+        formData.username
+      );
+      if (user) {
+        setDisplayName({ displayName: user.displayName });
+      }
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const handleClick = () => {
+    setShowSignUp(false);
   };
 
   return (
@@ -84,9 +99,12 @@ const SignUpPage = () => {
       </form>
       <p className="text-center text-primary text-[1.5rem] font-bold">
         Already have an account?{" "}
-        <Link href="/" className=" text-lightest hover:text-light">
+        <button
+          className=" text-lightest hover:text-light"
+          onClick={handleClick}
+        >
           Login
-        </Link>
+        </button>
       </p>
     </div>
   );

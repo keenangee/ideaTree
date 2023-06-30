@@ -5,11 +5,12 @@ import { SignInFormData, DisplayName } from "@/types";
 import { useState } from "react";
 import * as api from "../utils/api";
 
-interface DisplayNameProps {
+interface LoginPageProps {
   setDisplayName: React.Dispatch<React.SetStateAction<DisplayName>>;
+  setShowSignUp: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const LoginPage = ({ setDisplayName }: DisplayNameProps) => {
+const LoginPage = ({ setDisplayName, setShowSignUp }: LoginPageProps) => {
   const [formData, setFormData] = useState<SignInFormData>({
     email: "",
     password: "",
@@ -34,6 +35,10 @@ const LoginPage = ({ setDisplayName }: DisplayNameProps) => {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const handleClick = () => {
+    setShowSignUp(true);
   };
 
   return (
@@ -66,9 +71,12 @@ const LoginPage = ({ setDisplayName }: DisplayNameProps) => {
       </form>
       <p className="text-center text-primary text-[1.5rem] font-bold">
         Don't have an account?{" "}
-        <Link href="/signup" className=" text-lightest hover:text-light">
+        <button
+          className=" text-lightest hover:text-light"
+          onClick={handleClick}
+        >
           Sign Up
-        </Link>
+        </button>
       </p>
     </div>
   );

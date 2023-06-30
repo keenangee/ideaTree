@@ -1,11 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { SignInFormData } from "@/types";
+import { SignInFormData, DisplayName } from "@/types";
 import { useState } from "react";
 import * as api from "../utils/api";
 
-const LoginPage = () => {
+interface DisplayNameProps {
+  setDisplayName: React.Dispatch<React.SetStateAction<DisplayName>>;
+}
+
+const LoginPage = ({ setDisplayName }: DisplayNameProps) => {
   const [formData, setFormData] = useState<SignInFormData>({
     email: "",
     password: "",
@@ -23,7 +27,10 @@ const LoginPage = () => {
     e.preventDefault();
     console.log(formData);
     try {
-      api.signInWithEmail(formData.email, formData.password);
+      const user = await api.signInWithEmail(formData.email, formData.password);
+      if (user) {
+        setDisplayName({ displayName: user.displayName });
+      }
     } catch (err) {
       console.log(err);
     }

@@ -16,3 +16,7 @@ export interface SignInFormData {
   email: string;
   password: string;
 }
+
+export interface DisplayName {
+  displayName: string | null;
+}
